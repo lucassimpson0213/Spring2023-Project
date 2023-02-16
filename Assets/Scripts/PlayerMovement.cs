@@ -16,11 +16,12 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        
     }
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + direction.normalized * Time.fixedDeltaTime * speed);
-    }
+     }
     public Vector2 GetDirection()
     {
         return direction;
