@@ -19,9 +19,4 @@ public class MainMenuScript : MonoBehaviour
 
     //Options Menu functions
 
-    public void SetVolume(float newVolume)
-    {
-        AudioListener.volume = newVolume;
-        Debug.Log("Volume = " + AudioListener.volume);
-    }
 }
