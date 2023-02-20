@@ -399,10 +399,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1529611522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e16ac55a6095cd9448c336fc61baf18a, type: 3}
+  m_Script: {fileID: 11500000, guid: ba7c2259e0abf8e489205eb52676b91b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeAttackPrefab: {fileID: 1868895473673010215, guid: 7c9364efdd76db04fbc79ceb1014dc9d, type: 3}
 --- !u!1001 &7372020223255286397
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -457,10 +456,6 @@ PrefabInstance:
     - target: {fileID: 1868895473673010215, guid: 7c9364efdd76db04fbc79ceb1014dc9d, type: 3}
       propertyPath: m_Name
       value: EnemyAttackMelee
-      objectReference: {fileID: 0}
-    - target: {fileID: 3332760471812532822, guid: 7c9364efdd76db04fbc79ceb1014dc9d, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c9364efdd76db04fbc79ceb1014dc9d, type: 3}
