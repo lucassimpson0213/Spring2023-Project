@@ -32,7 +32,7 @@ public class EnemyMeleeAttackManager : MonoBehaviour
                 float targetAngle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
                 GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0,0,targetAngle));
                 
-            } else
+            } else if (target.Any(item => item.tag == "Player"))
             {
                 // Gets the first object with the tag of Player, no matter what postion it is from the array.
                 Vector3 vectorToTarget = target[target.IndexOf(target.Where(x => x.tag == "Player").FirstOrDefault())].transform.position - transform.position;
