@@ -214,13 +214,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3425731274571803984, guid: 241981f7df78fa944815c8d36c2d14ae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3425731274571803984, guid: 241981f7df78fa944815c8d36c2d14ae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3425731274659329534, guid: 241981f7df78fa944815c8d36c2d14ae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3425731274659329534, guid: 241981f7df78fa944815c8d36c2d14ae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3425731276053516176, guid: 241981f7df78fa944815c8d36c2d14ae, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 622889668}
+    - target: {fileID: 3425731276053516179, guid: 241981f7df78fa944815c8d36c2d14ae, type: 3}
+      propertyPath: bulletCooldown
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 4089606559287040788, guid: 241981f7df78fa944815c8d36c2d14ae, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089606559287040788, guid: 241981f7df78fa944815c8d36c2d14ae, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4089606559287040799, guid: 241981f7df78fa944815c8d36c2d14ae, type: 3}
       propertyPath: m_RootOrder
