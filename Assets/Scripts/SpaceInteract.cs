@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class SpaceInteract : MonoBehaviour
@@ -22,6 +23,7 @@ public class SpaceInteract : MonoBehaviour
         if (turret != null)
         {
             Debug.Log("Can't build there!");
+            return;
         }
 
         //Build a turret
@@ -30,8 +32,8 @@ public class SpaceInteract : MonoBehaviour
         turret = (GameObject)Instantiate(TurretToBuild, transform.position, transform.rotation);
     }
 
-    void OnMouseEnter ()
-    {
+    void OnMouseEnter()
+    { 
         render.material.color = hoverColor;
     }
 
