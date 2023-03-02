@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeAttack : MonoBehaviour
+public class TowerProjectile : MonoBehaviour
 {
     [SerializeField] float speed = 10f;
     [SerializeField] float attackRange = 1f;
@@ -19,7 +19,7 @@ public class MeleeAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(new Vector2(1,0) * speed * Time.deltaTime);
+        transform.Translate(new Vector2(1, 0) * speed * Time.deltaTime);
         if (Time.time >= timeStop)
         {
             Destroy(this.gameObject);
@@ -27,9 +27,9 @@ public class MeleeAttack : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<TowerHealth>())
+        if (collision.GetComponent<EnemyHealth>())
         {
-            collision.GetComponent<TowerHealth>().loseHealth(attackDamage);
+            collision.GetComponent<EnemyHealth>().loseHealth(attackDamage);
         }
     }
 }

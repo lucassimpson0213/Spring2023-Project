@@ -7,9 +7,8 @@ public class EnemyMeleeAttackManager : MonoBehaviour
 {
     public float enemyAttackSpeed;
     private float lastAttack = 0;
-    private List<Collider2D> collidersInside = new List<Collider2D>();
     [SerializeField] GameObject projectilePrefab;
-
+    public int attackDamage;
     // Update is called once per frame
     void Update()
     {
@@ -19,11 +18,11 @@ public class EnemyMeleeAttackManager : MonoBehaviour
         // It will only attack the player if there is not towers in its collider.
         // Targeting system will use the Tower and Player Tags.
         // Attack target every n seconds.
-        if (Time.time > lastAttack + enemyAttackSpeed && collidersInside.Count > 0)
+        if (Time.time > lastAttack + enemyAttackSpeed && this.GetComponentInChildren<EnemyAttackRangeCollider>().collidersInside.Count > 0)
         {
             lastAttack = Time.time;
             //sorts all of the objects in the array in order by distance.
-            var target = collidersInside.OrderBy(go => (transform.position - go.transform.position).sqrMagnitude).ToList();
+            var target = this.GetComponentInChildren<EnemyAttackRangeCollider>().collidersInside.OrderBy(go => (transform.position - go.transform.position).sqrMagnitude).ToList();
             if (target.Any(item => item.tag == "Tower"))
             {
                 // Gets the first object with the tag of Tower, no matter what postion it is from the array.
@@ -31,7 +30,8 @@ public class EnemyMeleeAttackManager : MonoBehaviour
                 // Gets the angle of the target from the fireing origin.
                 float targetAngle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
                 GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0,0,targetAngle));
-                
+                projectile.GetComponent<MeleeAttack>().attackDamage = attackDamage;
+
             } else if (target.Any(item => item.tag == "Player"))
             {
                 // Gets the first object with the tag of Player, no matter what postion it is from the array.
@@ -39,20 +39,8 @@ public class EnemyMeleeAttackManager : MonoBehaviour
                 // Gets the angle of the target from the fireing origin.
                 float targetAngle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
                 GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle));
+                projectile.GetComponent<MeleeAttack>().attackDamage = attackDamage;
             }
         }
-    }
-    // Creates the array of objects inside of the collider.
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // Checks if collider already exist inside of the array.
-        if (!collidersInside.Contains(other))
-        {
-            collidersInside.Add(other);
-        }
-    }
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        collidersInside.Remove(other);
     }
 }
