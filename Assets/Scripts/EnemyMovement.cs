@@ -10,6 +10,7 @@ public class EnemyMovement : MonoBehaviour
     public GameObject point;
     Rigidbody2D rb;
     Vector2 pos;
+    [SerializeField] float bufferDistance;
     
     void Start()
     {
@@ -21,10 +22,14 @@ public class EnemyMovement : MonoBehaviour
     {
 
         
-        pos = point.transform.position - (Vector3)(rb.position);
+        pos = (point.transform.position) - (Vector3)(rb.position);
         float angle = Mathf.Atan2(pos.y, pos.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = angle;
-        rb.MovePosition(rb.position + pos.normalized * speed * Time.deltaTime);
+        if (Vector2.Distance(point.transform.position, rb.position) > bufferDistance)
+        {
+            rb.MovePosition(rb.position + pos.normalized * speed * Time.deltaTime);
+        }
+
 
 
     }
