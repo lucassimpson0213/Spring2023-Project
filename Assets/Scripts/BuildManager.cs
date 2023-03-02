@@ -11,12 +11,14 @@ public class BuildManager : MonoBehaviour
         if (instance != null)
         {
             Debug.Log("More than one BuildManager in scene!");
+            return;
         }
         
         instance = this;
     }
 
     public GameObject GroundEnemyprefab;
+    public GameObject SpinnyEnemyprefab;
 
     private void Start()
     {
