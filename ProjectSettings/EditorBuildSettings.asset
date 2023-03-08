@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/sdhuffm Test1.unity
     guid: c77d507b0a86fef44baeb347d61bd419
   - enabled: 0
-    path: Assets/Scenes/sdhuffm Test2.unity
-    guid: a5c207c695472634d9800a03a9f80855
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

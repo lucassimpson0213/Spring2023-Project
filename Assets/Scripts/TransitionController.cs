@@ -5,29 +5,29 @@ public class TransitionController : MonoBehaviour
 {
 
     public Animator animator;
-
-    private int levelToLoad;
+    public string nextLevel;
 
     void Update()
     {
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButtonDown(0))
         {
-            FadeToLevel(1);
+            FadeToNextLevel();
         }
     }
 
     public void FadeToNextLevel()
     {
-        FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        FadeToLevel(nextLevel);
     }
-    public void FadeToLevel(int levelIndex)
+
+    public void FadeToLevel(string levelToLoad)
     {
-        levelToLoad = levelIndex;
+        nextLevel = levelToLoad;
         animator.SetTrigger("FadeOut");
     }
 
     public void OnFadeComplete()
     {
-        SceneManager.LoadScene(levelToLoad);
+        SceneManager.LoadScene(nextLevel);
     }
 }
