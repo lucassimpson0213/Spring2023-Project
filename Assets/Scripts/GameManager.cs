@@ -6,16 +6,27 @@ public class GameManager : MonoBehaviour
 {
     float masterListenerVolume;
 
-    // Start is called before the first frame update
+    public static GameManager instance;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+        // Start is called before the first frame update
     void Start()
     {
         masterListenerVolume = 1f;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SetMasterListenerVolume(float volume)
