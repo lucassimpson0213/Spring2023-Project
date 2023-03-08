@@ -126,11 +126,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4089606559287040799}
   - component: {fileID: 4089606559287040784}
-  - component: {fileID: 4089606559287040785}
-  - component: {fileID: 4089606559287040786}
-  - component: {fileID: 4089606559287040787}
   - component: {fileID: 3425731276053516176}
   - component: {fileID: 3425731276053516179}
+  - component: {fileID: 406050699916004051}
+  - component: {fileID: 4089606559287040785}
+  - component: {fileID: 4089606559287040787}
+  - component: {fileID: 4089606559287040786}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -167,6 +168,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4.75
+--- !u!114 &3425731276053516176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089606559287040788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17122475ff1295a41b32ec9963933906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+--- !u!114 &3425731276053516179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089606559287040788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d160ab6a3aefa454dbed934160ee37f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FirePoint: {fileID: 3425731274659329534}
+  BulletPrefab: {fileID: 5300216811957931505, guid: 0245b5234b14eb246978155e7c766222, type: 3}
+  bulletForce: 20
+  bulletCooldown: 0.5
+--- !u!114 &406050699916004051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089606559287040788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ca5b99109bc7c429322159df089205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundPrefab: {fileID: 4967475202125170013, guid: e6c8c8910f7cb404d8690c3141d8524f, type: 3}
+  DestroyTime: 1.5
 --- !u!212 &4089606559287040785
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -219,6 +263,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &4089606559287040787
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089606559287040788}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!50 &4089606559287040786
 Rigidbody2D:
   serializedVersion: 4
@@ -240,48 +300,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &4089606559287040787
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4089606559287040788}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &3425731276053516176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4089606559287040788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17122475ff1295a41b32ec9963933906, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 0}
---- !u!114 &3425731276053516179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4089606559287040788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d160ab6a3aefa454dbed934160ee37f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FirePoint: {fileID: 3425731274659329534}
-  BulletPrefab: {fileID: 5300216811957931505, guid: 0245b5234b14eb246978155e7c766222, type: 3}
-  bulletForce: 20
-  bulletCooldown: 0

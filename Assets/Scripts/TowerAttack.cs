@@ -19,6 +19,19 @@ public class TowerAttack : MonoBehaviour
         // It will only attack the player if there is not towers in its collider.
         // Targeting system will use the Tower and Player Tags.
         // Attack target every n seconds.
+
+
+        /*
+         * Hi this is cody! I just want to make a few notes for modifications to this script
+         * 
+         * we want to avoid looking at time and waiting for a time to pass. instead we should be using coroutines to schedule things to happen for a certain period of time and then allowing that thing to happen again
+         * 
+         * take a look at the unity doc for StartCoroutine and IEnumerators. Try to make that work with this script
+         * 
+         * if you have any questions let me know
+         */
+
+
         if (Time.time > lastAttack + towerAttackSpeed && collidersInside.Count > 0)
         {
             lastAttack = Time.time;

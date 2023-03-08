@@ -4,6 +4,8 @@ using UnityEngine;
 
 class level
 {
+
+    
     //Place holder amounts, need to change to get base stats dynamicly.
     private int health = 100;
     private int attack = 50;
@@ -54,6 +56,22 @@ class level
 
 public class Upgrades : MonoBehaviour
 {
+
+
+
+
+    /*
+     * Hey I just wanted to make sure we were on the same track for this script!
+     * Level design has expressed their dislike for the idea of managing stat multipliers and incrementing statMultipliers
+     * We want to pivot back to the per prefab set arrays of the levels
+     * We can do this one of two ways
+     * Arrays for each stat
+     * or
+     * Objects that hold each stat and an array to hold those objects
+     * 
+     * If you have any questions reach out to me during club or on discord :D
+     * 
+     */
     //ToDo:referance currancyManager and add costs to level
 
     public int max_level = 5;

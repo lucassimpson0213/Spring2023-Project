@@ -10,13 +10,24 @@ public class EnemyController : MonoBehaviour
     public float countdown;
     private int waveNumber = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+
+
+    /*NOTES FROM CODY!
+     
+    For this we want to have the wave controller spawn an enemy spawner
+    The enemy spawner should despawn after spawning a certain amount of enemies
+    When the wave controller spawns the enemy spawner, it should give a number to the enemy spawn that is the amount it should spawn
+
+    To control this, we want 8 Arrays (One for each Orthagonal and Diagonal Direction (N,NE,E,etc.))
+    The array would store the type of enemy we want to spawn
+    The array would also have a mirrored array, one that has the same amount of elements, to be used as the amount of those enemy types to spawn
+    
+    Ask me any questions you have about this. Thanks!
+     
+     */
+
+
     void Update()
     {
         if(countdown <= 0f)

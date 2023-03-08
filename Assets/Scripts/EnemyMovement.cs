@@ -12,6 +12,17 @@ public class EnemyMovement : MonoBehaviour
     Vector2 pos;
     [SerializeField] float bufferDistance;
     
+    /*
+     * Hey its cody! 
+     * I know you know what to do from here
+     * 
+     * Michael finished his script for grabbing the closest thing, now just make the position it moves to the closest thing according to the attack script
+     * 
+     * I believe!
+     * 
+     * If you have any questions just let me know :D
+     * 
+     */
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
