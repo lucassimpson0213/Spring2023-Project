@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -11,6 +12,13 @@ public class SpaceInteract : MonoBehaviour
 
     private Renderer render;
     private Color startColor;
+
+    StateController currentState;
+
+    private void Awake()
+    {
+        currentState = GameObject.Find("StateController").GetComponent<StateController>();
+    }
 
     private void Start()
     {
@@ -28,13 +36,25 @@ public class SpaceInteract : MonoBehaviour
 
         //Build a turret
 
-        GameObject TurretToBuild = BuildManager.instance.GetTurretToBuild();
-        turret = (GameObject)Instantiate(TurretToBuild, transform.position, transform.rotation);
+        if (currentState.state == 1 && !GetComponent<TowerHealth>())
+        {
+            GameObject TurretToBuild = BuildManager.instance.GetTurretToBuild();
+            turret = Instantiate(TurretToBuild, transform.position, transform.rotation);
+            Destroy(gameObject);
+            Debug.Log(turret);
+        }
+        
+        //Sell a turret
+        if (currentState.state == 2 & GetComponent<TowerHealth>())
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnMouseEnter()
     { 
         render.material.color = hoverColor;
+        Debug.Log(render.gameObject);
     }
 
     void OnMouseExit ()
