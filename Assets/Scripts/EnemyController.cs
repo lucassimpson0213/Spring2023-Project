@@ -5,10 +5,20 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public Transform enemyPrefab;
-    public Transform enemySpawn;
+    public GameObject enemySpawn;
     public float timeBetweenWaves;
     public float countdown;
-    private int waveNumber = 0;
+    public int[] northArr;
+    public int[] southArr;
+    public int[] eastArr;
+    public int[] westArr;
+    public int[] northEastArr;
+    public int[] northWestArr;
+    public int[] southEastArr;
+    public int[] southWestArr;
+    public int waveAmount;
+    private int waveNumber = 1;
+    private int index = 0;
 
 
 
@@ -27,32 +37,104 @@ public class EnemyController : MonoBehaviour
      
      */
 
+    /*private void Start()
+    {
+        northArr = new int[waveAmount];
+        southArr = new int[waveAmount];
+        eastArr = new int[waveAmount];
+        westArr = new int[waveAmount];
+        northEastArr = new int[waveAmount];
+        northWestArr = new int[waveAmount];
+        southEastArr = new int[waveAmount];
+        southWestArr = new int[waveAmount];
+    }*/
+
 
     void Update()
     {
-        if(countdown <= 0f)
+        
+        if (countdown <= 0f)
         {
             StartCoroutine(SpawnWave());
             countdown = timeBetweenWaves;
         }
         countdown -= Time.deltaTime;
+        if(waveNumber == waveAmount)
+        {
+            StopCoroutine(SpawnWave());
+            Destroy(this);
+        }
     }
 
     IEnumerator SpawnWave()
     {
         Debug.Log("Spawn Wave");
+        Debug.Log("Wave " + waveNumber);
+        
+        
+        SpawnEnemy(1, northArr[index]);
+        SpawnEnemy(2, southArr[index]);
+        SpawnEnemy(3, eastArr[index]);
+        SpawnEnemy(4, westArr[index]);
         waveNumber++;
-        for (int i = 0; i < waveNumber; i++)
-        {
-            SpawnEnemy();
-            //Wait 0.5 seconds before spawning next enemy
-            yield return new WaitForSeconds(0.5f);
-        }
+        index++;
+        //Wait 0.5 seconds before spawning next enemy
+        yield return new WaitForSeconds(0.5f);
+        
+
     }
 
-    void SpawnEnemy()
+    void SpawnEnemy(int spawnPosition, int enemyType)
     {
-        Instantiate(enemyPrefab, enemySpawn.position, enemySpawn.rotation);
+        //Switch case for spawns
+        switch(spawnPosition)
+        {
+            //North Spawn
+            case 1:
+                if(enemyType == 0)
+                {
+                    break;
+                }
+                enemySpawn = GameObject.Find("NorthSpawn");
+                Instantiate(enemyPrefab, enemySpawn.transform.position, enemySpawn.transform.rotation);
+                Debug.Log("Spawn Enemy");
+                break;
+            //South Spawn
+            case 2:
+                if (enemyType == 0)
+                {
+                    break;
+                }
+                enemySpawn = GameObject.Find("SouthSpawn");
+                Instantiate(enemyPrefab, enemySpawn.transform.position, enemySpawn.transform.rotation);
+                Debug.Log("Spawn Enemy");
+                break;
+            //East Spawn
+            case 3:
+                if (enemyType == 0)
+                {
+                    break;
+                }
+                enemySpawn = GameObject.Find("EastSpawn");
+                Instantiate(enemyPrefab, enemySpawn.transform.position, enemySpawn.transform.rotation);
+                Debug.Log("Spawn Enemy");
+                break;
+            //West Spawn
+            case 4:
+                if (enemyType == 0)
+                {
+                    break;
+                }
+                enemySpawn = GameObject.Find("WestSpawn");
+                Instantiate(enemyPrefab, enemySpawn.transform.position, enemySpawn.transform.rotation);
+                Debug.Log("Spawn Enemy");
+                break;
+            
+        }
+
+
+
+        //Instantiate(enemyPrefab, enemySpawn.transform.position, enemySpawn.transform.rotation);
         Debug.Log("Spawn Enemy");
     }
 }
