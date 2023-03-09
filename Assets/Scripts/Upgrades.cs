@@ -2,64 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-class level
-{
-
-    
-    //Place holder amounts, need to change to get base stats dynamicly.
-    private int health = 100;
-    private int attack = 50;
-    private int aps = 1;
-    private int range = 10;
-
-    public void setupLevel(int hp, int atk, int speed, int range)
-    {
-        this.health = hp;
-        this.attack = atk;
-        this.aps = speed;
-        this.range = range;
-    }
-    public void setHealth(int hp)
-    {
-        this.health = hp;
-    }
-    public int getHealth()
-    {
-        return this.health;
-    }
-    public void setAttack(int atk)
-    {
-        this.attack = atk;
-    }
-    public int getAttack()
-    {
-        return this.attack;
-    }
-    public void setAttackRate(int aps)
-    {
-        this.aps = aps;
-    }
-    public int getAttackRate()
-    {
-        return this.aps;
-    }
-    public void setRange(int rng)
-    {
-        this.range = rng;
-    }
-    public int getRange()
-    {
-        return this.range;
-    }
-}
-
 
 public class Upgrades : MonoBehaviour
 {
-
-
-
-
     /*
      * Hey I just wanted to make sure we were on the same track for this script!
      * Level design has expressed their dislike for the idea of managing stat multipliers and incrementing statMultipliers
@@ -72,54 +17,66 @@ public class Upgrades : MonoBehaviour
      * If you have any questions reach out to me during club or on discord :D
      * 
      */
-    //ToDo:referance currancyManager and add costs to level
 
     public int max_level = 5;
-    //ToDo: Find out how stats will increase from level to level
-    public int statMultiplier = 2;
-    public double multiplierIncrease = .5;
     private int curr_level = 0;
-    level[] towerLevels;
-
+    private int[] health;
+    private int[] attack;
+    private int[] attackRate;
+    private int[] range;
+    private int[] upgradeCost;
 
     // Start is called before the first frame update
     void Start()
     {
-        towerLevels = new level[max_level];
+        health = new int[max_level];
+        attack = new int[max_level];
+        attackRate = new int[max_level];
+        range = new int[max_level];
+        upgradeCost = new int[max_level];
 
-        for (int x = 1; x < max_level; x++ )
+        for (int x = 0; x < max_level; x++ )
         {
-            towerLevels[x].setupLevel(
-                towerLevels[x - 1].getHealth() * statMultiplier,
-                towerLevels[x - 1].getAttack() * statMultiplier,
-                towerLevels[x - 1].getAttackRate() * statMultiplier,
-                towerLevels[x - 1].getRange() * statMultiplier);
-
-            //not working quest yet
-
-            //statMultiplier = (double)statMultiplier + multiplierIncrease;
+            //todo: change this to get stats from prefab.
+            health[x] = 0;
+            attack[x] = 0;
+            attackRate[x] = 0;
+            range[x] = 0;
+            upgradeCost[x] = 0;
         }
     }
     
     public void levelUp()
     {
-        curr_level++;
+        if(CurrencyManager.instance.SubtractCurrency(upgradeCost[curr_level]) 
+            && curr_level<max_level)
+        {
+            curr_level++;
+        }
     }
-    public int getCurrHealth()
+    public int getCurrentLevel()
     {
-        return towerLevels[curr_level].getHealth();
+        return curr_level;
     }
-    public int getCurrAttack()
+    public int getHealth()
     {
-        return towerLevels[curr_level].getAttack();
+        return health[curr_level];
     }
-    public int getCurrAttackRate()
+    public int getAttack()
     {
-        return towerLevels[curr_level].getAttackRate();
+        return attack[curr_level];
     }
-    public int getCurrRange()
+    public int getAttackRate()
     {
-        return towerLevels[curr_level].getRange();
+        return attackRate[curr_level];
+    }
+    public int getRange()
+    {
+        return range[curr_level];
+    }
+    public int getUpgradeCost()
+    {
+        return upgradeCost[curr_level];
     }
 }
 
