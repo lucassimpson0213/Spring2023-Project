@@ -31,5 +31,9 @@ public class MeleeAttack : MonoBehaviour
         {
             collision.GetComponent<TowerHealth>().loseHealth(attackDamage);
         }
+        if (collision.GetComponent<PlayerHealth>())
+        {
+            collision.GetComponent<PlayerHealth>().loseHealth(attackDamage);
+        }
     }
 }
