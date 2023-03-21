@@ -28,6 +28,10 @@ public class EnemyDetector : MonoBehaviour
         {
             Transform vectorToTarget = target[target.IndexOf(target.Where(x => x.GetComponent<TowerHealth>()).FirstOrDefault())].transform;
             return vectorToTarget;
+        } else if (target.Any(item => item.GetComponent<PlayerHealth>()))
+        {
+            Transform vectorToTarget = target[target.IndexOf(target.Where(x => x.GetComponent<PlayerHealth>()).FirstOrDefault())].transform;
+            return vectorToTarget;
         }
         return null;
     }
