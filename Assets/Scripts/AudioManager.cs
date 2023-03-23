@@ -1,15 +1,23 @@
 using UnityEngine.Audio;
 using System;
-using UnityEngine;  
+using UnityEngine;
+using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioManagerSound[] sounds;
+    public List<AudioManagerSound> readySounds;
+    public List<AudioManagerSound> soundBank;
+
+    public string firstSongName;
 
     public static AudioManager instance;
 
+    public float fadeTime;
+    private List<float> fadeTimeRemaining;
+
     void Awake()
     {
+        // Make sure new scenes don't have any extra AudioManagers since this one persists
         if (instance == null)
         {
             instance = this;
@@ -21,31 +29,120 @@ public class AudioManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-
-        foreach (AudioManagerSound s in sounds)
-        {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
-        }
     }
 
     private void Start()
     {
-        //Play BGM
-        Play("BGM");
+        fadeTimeRemaining = new List<float>();
+
+        // Start by playing first sound, written in editor
+        Play(firstSongName);
     }
 
+    // Play song by name
     public void Play(string name)
     {
-        AudioManagerSound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        // Ignore Play command if same song is already playing
+        if (readySounds.Count > 0)
         {
-            Debug.LogWarning("AudioManagerSound: " + name + " not found");
-            return;
+            if (readySounds[0].name.Equals(name))
+            {
+                Debug.Log("AudioManagerSound: " + name + " is already playing");
+                return;
+            }
         }
-        s.source.Play();
+        bool soundFound = false;
+        // Locate desired sound and insert it into first index
+        foreach (AudioManagerSound s in soundBank)
+        {
+            if (s.name.Equals(name))
+            {
+                readySounds.Insert(0, s);
+                // Initialize sound source and play it
+                readySounds[0].source = gameObject.AddComponent<AudioSource>();
+                readySounds[0].source.clip = readySounds[0].clip;
+                readySounds[0].source.volume = 0f;
+                readySounds[0].source.pitch = readySounds[0].pitch;
+                readySounds[0].source.loop = readySounds[0].loop;
+                readySounds[0].source.Play();
+                // fadeTimeRemaining[] should have an entry for each one in readySounds[]
+                // Probably would be better to include the fadeTimeRemaining in the sound object itself actually... might do later
+                fadeTimeRemaining.Insert(0, fadeTime);
+                // For other fades (such as the one that just got pushed back, if it exists), set them if they arent already ticking
+                if (fadeTimeRemaining.Count > 1) // if there was already a song playing that got pushed back
+                {
+                    for (int i = 1; i < fadeTimeRemaining.Count; i++)
+                    {
+                        // If not already on fade timer
+                        if (fadeTimeRemaining[i] <= 0)
+                        {
+                            fadeTimeRemaining[i] = fadeTime;
+                        }
+                    }
+                }
+                soundFound = true;
+                break;
+            }
+        }
+        if (!soundFound)
+        {
+            Debug.LogWarning("AudioManagerSound: " + name + " not found in soundBank");
+        }
+    }
+    public void Pause()
+    {
+        foreach (AudioManagerSound s in readySounds)
+        {
+            s.source.Pause();
+        }
+    }
+    public void Stop()
+    {
+        foreach (AudioManagerSound s in readySounds)
+        {
+            s.source.Stop();
+        }
+    }
+
+    private void Update()
+    {
+        /*
+        // for testing bgm fade
+        if (Input.GetKeyDown(KeyCode.O)) {
+            Play("BGM2");
+        }
+        */
+
+        // handle fades
+        if (fadeTimeRemaining.Count > 0) // just protection against list being empty
+        {
+            for (int i = 0; i < fadeTimeRemaining.Count; i++)
+            {
+                if (fadeTimeRemaining[i] > 0) // if fade time left
+                {
+                    if (i == 0) // fade in first element
+                    {
+                        readySounds[0].source.volume += (readySounds[0].volume / (fadeTime / Time.deltaTime));
+                    }
+                    else // fade out other elements
+                    {
+                        readySounds[i].source.volume -= (readySounds[i].volume / (fadeTime / Time.deltaTime));
+                    }
+                    fadeTimeRemaining[i] -= Time.deltaTime;
+                }
+                else // if no fade time left
+                {
+                    if (i == 0) // ensure new clip volume ends up at the proper setting
+                    {
+                        readySounds[0].source.volume = readySounds[0].volume;
+                    }
+                    else // if not first element, then remove element
+                    {
+                        readySounds.RemoveAt(i);
+                        fadeTimeRemaining.RemoveAt(i);
+                    }
+                }
+            }
+        }
     }
 }
