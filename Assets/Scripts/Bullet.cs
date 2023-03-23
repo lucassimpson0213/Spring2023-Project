@@ -10,7 +10,14 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.GetComponent<EnemyHealth>())
         {
             collision.gameObject.GetComponent<EnemyHealth>().loseHealth(damage);
+            Destroy(gameObject);
+        } else if (collision.gameObject.GetComponent<PlayerHealth>())
+        {
+
+        } else
+        {
+            
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }
