@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        // Make sure new scenes don't have any extra GameManagers since this one persists
         if (instance == null)
         {
             instance = this;

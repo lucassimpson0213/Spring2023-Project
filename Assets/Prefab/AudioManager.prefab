@@ -44,10 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc4059484f1f794fb654024293f376d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
+  readySounds: []
+  soundBank:
   - name: BGM
     clip: {fileID: 8300000, guid: a02b4ff653db5d848b8ab9f4746ca385, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: BGM2
+    clip: {fileID: 8300000, guid: 40a24fb9c3f1096439f5a02da1e24d1f, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  firstSongName: BGM
+  fadeTime: 2
