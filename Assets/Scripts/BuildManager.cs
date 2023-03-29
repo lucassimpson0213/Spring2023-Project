@@ -6,6 +6,10 @@ public class BuildManager : MonoBehaviour
 {
     public static BuildManager instance;
 
+    StateController currentState;
+
+    public GameObject tower;
+
 
     /*NOTES FROM CODY!
      
@@ -40,6 +44,8 @@ public class BuildManager : MonoBehaviour
         }
         
         instance = this;
+
+        currentState = GameObject.Find("StateController").GetComponent<StateController>();
     }
 
     public GameObject GroundEnemyprefab;
@@ -55,5 +61,14 @@ public class BuildManager : MonoBehaviour
     public GameObject GetTurretToBuild ()
     {
         return TurretToBuild;
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0) && currentState.state == 1)
+        {
+            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Instantiate(tower, pos, Quaternion.identity);
+        }
     }
 }

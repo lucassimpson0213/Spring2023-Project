@@ -584,6 +584,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4755480526224379667, guid: d235d29d4b1f52140ad9eb02b12a4ff5, type: 3}
+      propertyPath: tower
+      value: 
+      objectReference: {fileID: 7242737977702516629, guid: d71ca1382d30a9b4781d30bce56c2890, type: 3}
+    - target: {fileID: 4755480526224379667, guid: d235d29d4b1f52140ad9eb02b12a4ff5, type: 3}
       propertyPath: GroundEnemyprefab
       value: 
       objectReference: {fileID: 7242737977702516629, guid: d71ca1382d30a9b4781d30bce56c2890, type: 3}

@@ -19,6 +19,6 @@ public class AudioController : MonoBehaviour
     {
         gm.GetComponent<GameManager>().SetMasterListenerVolume(newVolume);
         AudioListener.volume = newVolume;
-        Debug.Log("Volume = " + AudioListener.volume);
+        //Debug.Log("Volume = " + AudioListener.volume);
     }
 }

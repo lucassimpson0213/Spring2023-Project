@@ -9,7 +9,7 @@ public class EnemyAttackRangeCollider : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Checks if collider already exist inside of the array.
-        if (!collidersInside.Contains(other))
+        if (!other.gameObject.GetComponent<TowerProjectile>() && !collidersInside.Contains(other))
         {
             collidersInside.Add(other);
         }

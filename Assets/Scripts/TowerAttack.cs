@@ -10,6 +10,7 @@ public class TowerAttack : MonoBehaviour
     [SerializeField] GameObject projectilePrefab;
     public int attackDamage;
     private bool attackCoroutineRunning = false;
+    [SerializeField] string towerType;
     // Update is called once per frame
     void Update()
     {
@@ -28,7 +29,7 @@ public class TowerAttack : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Checks if collider already exist inside of the array.
-        if (!collidersInside.Contains(other))
+        if (!other.gameObject.GetComponent<MeleeAttack>() && !other.gameObject.GetComponent<TowerProjectile>() && !collidersInside.Contains(other))
         {
             collidersInside.Add(other);
         }
@@ -43,14 +44,28 @@ public class TowerAttack : MonoBehaviour
         attackCoroutineRunning = true;
         //sorts all of the objects in the array in order by distance.
         var target = collidersInside.OrderBy(go => (transform.position - go.transform.position).sqrMagnitude).ToList();
+        
         if (target.Any(item => item.GetComponent<EnemyHealth>()))
         {
+            GameObject projectile;
             // Gets the first object with the tag of Tower, no matter what postion it is from the array.
             Vector3 vectorToTarget = target[target.IndexOf(target.Where(x => x.tag == "Enemy/Ground").FirstOrDefault())].transform.position - transform.position;
             // Gets the angle of the target from the fireing origin.
             float targetAngle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle));
-            projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
+            if (towerType == "standard" || towerType == "sniper")
+            {
+                projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle));
+                projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
+            }
+            if (towerType == "shotgun")
+            {
+                projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle));
+                projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
+                projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle + 45));
+                projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
+                projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle - 45));
+                projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
+            }
         }
         yield return new WaitForSeconds(towerAttackSpeed);
         attackCoroutineRunning = false;

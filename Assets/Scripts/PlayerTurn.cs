@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerTurn : MonoBehaviour
 {
     Rigidbody2D rb;
-    public Camera cam;
     Vector2 mousePos;
     // Start is called before the first frame update
     void Start()
@@ -16,7 +15,7 @@ public class PlayerTurn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
     private void FixedUpdate()
     {
