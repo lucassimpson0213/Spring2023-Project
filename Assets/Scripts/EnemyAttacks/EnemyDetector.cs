@@ -11,7 +11,7 @@ public class EnemyDetector : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Checks if collider already exist inside of the array.
-        if (!collidersInside.Contains(other))
+        if (!other.gameObject.GetComponent<TowerProjectile>() && !collidersInside.Contains(other))
         {
             collidersInside.Add(other);
         }
@@ -20,17 +20,17 @@ public class EnemyDetector : MonoBehaviour
     {
         collidersInside.Remove(other);
     }
-    public Transform GetCloseTower()
+    public GameObject GetCloseTower()
     {
         //sorts all of the objects in the array in order by distance.
         var target = collidersInside.OrderBy(go => (transform.position - go.transform.position).sqrMagnitude).ToList();
         if (target.Any(item => item.GetComponent<TowerHealth>()))
         {
-            Transform vectorToTarget = target[target.IndexOf(target.Where(x => x.GetComponent<TowerHealth>()).FirstOrDefault())].transform;
+            GameObject vectorToTarget = target[target.IndexOf(target.Where(x => x.GetComponent<TowerHealth>()).FirstOrDefault())].gameObject;
             return vectorToTarget;
         } else if (target.Any(item => item.GetComponent<PlayerHealth>()))
         {
-            Transform vectorToTarget = target[target.IndexOf(target.Where(x => x.GetComponent<PlayerHealth>()).FirstOrDefault())].transform;
+            GameObject vectorToTarget = target[target.IndexOf(target.Where(x => x.GetComponent<PlayerHealth>()).FirstOrDefault())].gameObject;
             return vectorToTarget;
         }
         return null;

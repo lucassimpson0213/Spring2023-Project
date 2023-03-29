@@ -30,6 +30,7 @@ public class TowerProjectile : MonoBehaviour
         if (collision.GetComponent<EnemyHealth>())
         {
             collision.GetComponent<EnemyHealth>().loseHealth(attackDamage);
+            Destroy(this.gameObject);
         }
     }
 }

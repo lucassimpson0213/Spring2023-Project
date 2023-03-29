@@ -13,6 +13,13 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] float bufferDistance;
     private GameObject playerCore;
 
+    //Player Anti Follow
+    private Vector2 centerMaxRange;
+    [SerializeField] float maxPlayerFollowRange = 4;
+    [SerializeField] float playerIgnoreCooldown = 2;
+    private bool playerAgro = false;
+    private bool ignorePlayer = false;
+
     /*
      * Hey its cody! 
      * I know you know what to do from here
@@ -33,15 +40,45 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Transform NearestObject = towerDetectObject.GetComponent<EnemyDetector>().GetCloseTower();
+        GameObject NearestObject = towerDetectObject.GetComponent<EnemyDetector>().GetCloseTower();
         if (NearestObject != null)
         {
-            pos = (NearestObject.position) - (Vector3)(rb.position);
-            float angle = Mathf.Atan2(pos.y, pos.x) * Mathf.Rad2Deg - 90f;
-            rb.rotation = angle;
-            if (Vector2.Distance(NearestObject.position, rb.position) > bufferDistance)
+            if (NearestObject.GetComponent<PlayerHealth>() && !playerAgro && !ignorePlayer)
             {
-                rb.MovePosition(rb.position + pos.normalized * speed * Time.deltaTime);
+                // Run once to get the center position of player for the max range.
+                playerAgro = true;
+                centerMaxRange = NearestObject.transform.position;
+            } else if (playerAgro && Vector2.Distance(transform.position, centerMaxRange) >= maxPlayerFollowRange)
+            {
+                // Run when player gets out of range and ignores them for N amount of seconds.
+                ignorePlayer = true;
+                playerAgro = false;
+                StartCoroutine("PlayerAgroCooldown");
+            }
+            if (NearestObject.GetComponent<PlayerHealth>() && ignorePlayer)
+            {
+                // default to the core if ignorePlayer is enabled
+                pos = (playerCore.transform.position) - (Vector3)(rb.position);
+                float angle = Mathf.Atan2(pos.y, pos.x) * Mathf.Rad2Deg - 90f;
+                rb.rotation = angle;
+                if (Vector2.Distance(playerCore.transform.position, rb.position) > bufferDistance)
+                {
+                    rb.MovePosition(rb.position + pos.normalized * speed * Time.deltaTime);
+                }
+            } else
+            {
+                if (!NearestObject.GetComponent<PlayerHealth>())
+                {
+                    // Set the agro if targeting changes.
+                    playerAgro = false;
+                }
+                pos = (NearestObject.transform.position) - (Vector3)(rb.position);
+                float angle = Mathf.Atan2(pos.y, pos.x) * Mathf.Rad2Deg - 90f;
+                rb.rotation = angle;
+                if (Vector2.Distance(NearestObject.transform.position, rb.position) > bufferDistance)
+                {
+                    rb.MovePosition(rb.position + pos.normalized * speed * Time.deltaTime);
+                }
             }
         } else
         {
@@ -53,5 +90,10 @@ public class EnemyMovement : MonoBehaviour
                 rb.MovePosition(rb.position + pos.normalized * speed * Time.deltaTime);
             }
         }
+    }
+    private IEnumerator PlayerAgroCooldown()
+    {
+        yield return new WaitForSeconds(2f);
+        ignorePlayer = false;
     }
 }
