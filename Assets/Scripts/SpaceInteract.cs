@@ -33,16 +33,6 @@ public class SpaceInteract : MonoBehaviour
             Debug.Log("Can't build there!");
             return;
         }
-
-        //Build a turret
-
-        if (currentState.state == 1 && !GetComponent<TowerHealth>())
-        {
-            GameObject TurretToBuild = BuildManager.instance.GetTurretToBuild();
-            turret = Instantiate(TurretToBuild, transform.position, transform.rotation);
-            Destroy(gameObject);
-            Debug.Log(turret);
-        }
         
         //Sell a turret
         if (currentState.state == 2 & GetComponent<TowerHealth>())
