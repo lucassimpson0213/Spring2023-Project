@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PhaseShift : MonoBehaviour
 {
-    private bool activePhase; //True if in active phase, False if in setup
+    public bool activePhase; //True if in active phase, False if in setup
     public bool enemiesRemain; //True if there are still enemies, false if there are no enemies
     public bool skip; //True if skip setup button is pressed, false otherwise
     [SerializeField] float setupTime;
@@ -14,24 +15,21 @@ public class PhaseShift : MonoBehaviour
     void Start()
     {
         activePhase = false;    //Start in setup phase im guessing...
-        setupTime = 100; //Random value for testing
+        setupTime = 40; //Random value for testing
         StartCoroutine(setupWait());
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        /*
-         * if(skipButton is pressed && activePhase = false)
-         * {
-         *      activePhase = true;
-         *      setupTime = 100;
-         *      StartCoroutine(setupWait());
-         *      
-         * }
-         *      
-         */
+         if(skip && (activePhase == false))
+         {
+              activePhase = true;
+              setupTime = 100;
+              StartCoroutine(setupWait());
+              skip = false;
+         }
+               
         if (activePhase)
         {
             if(!enemiesRemain)
@@ -52,5 +50,8 @@ public class PhaseShift : MonoBehaviour
         activePhase = true;
         
     }
-
+    public void skipPhase()
+    {
+        skip = true;
+    }
 }
