@@ -28,7 +28,7 @@ public class SpaceInteract : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (turret != null)
+        if (currentState.state == 1)
         {
             Debug.Log("Can't build there!");
             return;
@@ -41,10 +41,9 @@ public class SpaceInteract : MonoBehaviour
         }
     }
 
-    void OnMouseEnter()
+    void OnMouseOver()
     { 
-        render.material.color = hoverColor;
-        Debug.Log(render.gameObject);
+      //  render.material.color = hoverColor;
     }
 
     void OnMouseExit ()
