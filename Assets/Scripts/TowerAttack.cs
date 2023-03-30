@@ -11,7 +11,7 @@ public class TowerAttack : MonoBehaviour
     public int attackDamage;
     private bool attackCoroutineRunning = false;
     [SerializeField] string towerType;
-    // Update is called once per frame
+     // Update is called once per frame
     void Update()
     {
         // This function will fire a Prefab at the direction of a target within its collider.
@@ -52,7 +52,7 @@ public class TowerAttack : MonoBehaviour
             Vector3 vectorToTarget = target[target.IndexOf(target.Where(x => x.tag == "Enemy/Ground").FirstOrDefault())].transform.position - transform.position;
             // Gets the angle of the target from the fireing origin.
             float targetAngle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
-            if (towerType == "standard" || towerType == "sniper")
+            if (towerType == "standard" || towerType == "sniper" || towerType == "chain")
             {
                 projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle));
                 projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
