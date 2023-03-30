@@ -70,8 +70,8 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("Spawn Wave");
         Debug.Log("Wave " + waveNumber);
-        
-        
+
+        GameObject.Find("SoundController").GetComponent<Sound>().SpawnSound("WaveIncoming");
         SpawnEnemy(1, northArr[index]);
         SpawnEnemy(2, southArr[index]);
         SpawnEnemy(3, eastArr[index]);
