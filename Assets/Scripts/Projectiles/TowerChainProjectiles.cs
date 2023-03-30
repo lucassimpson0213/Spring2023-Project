@@ -7,53 +7,46 @@ public class TowerChainProjectiles : MonoBehaviour
     [SerializeField] float speed = 10f;
     [SerializeField] float attackRange = 1f;
     [SerializeField] int chains = 1;
-    private Rigidbody2D rb;
-    private Vector2 pos;
-    private bool firedFromTower = true;
     public GameObject lockTarget;
     public int attackDamage;
     public List<GameObject> fireChain = new List<GameObject>();
     [SerializeField] GameObject detectObject;
     private int currentBounce = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        //rb = GetComponent<Rigidbody2D>();
-        //detectObject.GetComponent<TowerChainDetect>().FindClosestEnemy();
-        Debug.Log(lockTarget);
-        //Debug.Log(fireOrigin[fireOrigin.Count - 1]);
-    }
 
     // Update is called once per frame
     private void Update()
     {
+        // Checks to make sure a target is selected
         if (lockTarget)
         {
+            //Move To the enemy and will flow them even through they changed direction.
             transform.position = Vector2.MoveTowards(transform.position, lockTarget.transform.position, speed * Time.deltaTime);
+            //Will always turn the bullet to face the enemy.
             Vector3 vectorToTarget = lockTarget.transform.position - transform.position;
             float targetAngle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, targetAngle);
-            Debug.Log(targetAngle);
         } else
         {
+            // If the target was destoryed, then delete bullet.
+            // You can change it to find a new target if the enemy dies before it reaches it target.
             Destroy(this.gameObject);
         }
-    }
-    private void FixedUpdate()
-    {
-        //pos = (lockTarget.transform.position) - (Vector3)(rb.position);
-        //rb.MovePosition(rb.position + pos.normalized * speed * Time.deltaTime);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.GetComponent<EnemyHealth>())
         {
+            // Set the bullet to the center of the hit object to make it the firing origin.
             transform.position = collision.transform.position;
+            // This If statment checks to make sure that the target is the one that loses health and not other objects in the line of fire.
+            // Can be removed if the desired function is to also hit enemys in the path.
             if (collision.gameObject == lockTarget)
             {
                 collision.GetComponent<EnemyHealth>().loseHealth(attackDamage);
             }
+            //Checks for other enemys in range to fire at.
             var newTarget = detectObject.GetComponent<TowerChainDetect>().FindClosestWhileExlude(collision.gameObject);
+            //If no other enemys are near by or the max chain is reach, destory.
             if (newTarget == null || currentBounce >= chains)
             {
                 Destroy(this.gameObject);
@@ -61,6 +54,7 @@ public class TowerChainProjectiles : MonoBehaviour
             else
             {
                 currentBounce++;
+                // add object to array for the function to stop same targeting.
                 fireChain.Add(newTarget);
                 lockTarget = newTarget;
             }
