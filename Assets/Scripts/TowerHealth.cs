@@ -11,6 +11,7 @@ public class TowerHealth : MonoBehaviour
         health = health - damage;
         if (health <= 0)
         {
+            GameObject.Find("SoundController").GetComponent<Sound>().SpawnSound("TowerDestroy");
             Destroy(gameObject);
         }
     }

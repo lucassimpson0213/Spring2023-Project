@@ -31,13 +31,13 @@ public class Shooting : MonoBehaviour
         GameObject bullet = Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(FirePoint.up * bulletForce, ForceMode2D.Impulse);
-        if (GetComponent<Sound>()) { 
-        GetComponent<Sound>().SpawnSound("Shoot");
-        }
+        //if (GetComponent<Sound>()) { 
+        GameObject.Find("SoundController").GetComponent<Sound>().SpawnSound("Shoot");
+        /*}
         else
         {
             Debug.Log("There is no Sound!");
-        }
+        }*/
     }
     IEnumerator fireWait()
     {

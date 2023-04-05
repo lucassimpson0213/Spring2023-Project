@@ -67,6 +67,7 @@ public class BuildManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && currentState.state == 1)
         {
+            GameObject.Find("SoundController").GetComponent<Sound>().SpawnSound("TowerPlace1");
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Instantiate(tower, pos, Quaternion.identity);
         }
