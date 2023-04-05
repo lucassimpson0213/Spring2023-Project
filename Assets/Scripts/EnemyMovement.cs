@@ -41,9 +41,10 @@ public class EnemyMovement : MonoBehaviour
     void FixedUpdate()
     {
         GameObject NearestObject = towerDetectObject.GetComponent<EnemyDetector>().GetCloseTower();
+        bool nearCore = towerDetectObject.GetComponent<EnemyDetector>().IsNearCore();
         if (NearestObject != null)
         {
-            if (NearestObject.GetComponent<PlayerHealth>() && !playerAgro && !ignorePlayer)
+            if (NearestObject.GetComponent<PlayerHealth>() && !playerAgro && !ignorePlayer && !nearCore)
             {
                 // Run once to get the center position of player for the max range.
                 playerAgro = true;
@@ -55,7 +56,7 @@ public class EnemyMovement : MonoBehaviour
                 playerAgro = false;
                 StartCoroutine("PlayerAgroCooldown");
             }
-            if (NearestObject.GetComponent<PlayerHealth>() && ignorePlayer)
+            if ((NearestObject.GetComponent<PlayerHealth>() && ignorePlayer) || nearCore)
             {
                 // default to the core if ignorePlayer is enabled
                 pos = (playerCore.transform.position) - (Vector3)(rb.position);
