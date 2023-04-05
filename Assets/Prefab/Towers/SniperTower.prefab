@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946fe516742bd8d428f5586916b31694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 6
+  health: 70
 --- !u!114 &6020665527287464371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,9 +256,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1d33d1e351b8a4cad5df3a73403c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerAttackSpeed: 1
+  towerAttackSpeed: 2
   projectilePrefab: {fileID: 6743266026246061844, guid: 9acb59d74b08aad4d82da1548869d7f0, type: 3}
-  attackDamage: 10
+  attackDamage: 70
   towerType: sniper
 --- !u!1 &8416358970125311460
 GameObject:
