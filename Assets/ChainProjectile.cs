@@ -39,7 +39,7 @@ public class ChainProjectile : MonoBehaviour
             collision.GetComponent<EnemyHealth>().loseHealth(attackDamage);
 
             Destroy(this.gameObject);
-            if (tempChains <= chains)
+            /*if (tempChains <= chains)
             {
                 if (!collision.gameObject.GetComponent<MeleeAttack>() && !collision.gameObject.GetComponent<TowerProjectile>() && !collidersInside.Contains(other))
                 {
@@ -53,7 +53,7 @@ public class ChainProjectile : MonoBehaviour
                 projectile.GetComponent<ChainProjectile>().getChains(tempChains);
                 projectile.GetComponent<ChainProjectile>().fireOrigin = 
                 projectile.GetComponent<ChainProjectile>().attackDamage = attackDamage;
-            }
+            }*/
         }
     }
 
