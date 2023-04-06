@@ -15,6 +15,10 @@ public class SpaceInteract : MonoBehaviour
 
     StateController currentState;
 
+    public int condition;
+    // condition 0 = can build
+    // condition 1 = cannot build
+
     private void Awake()
     {
         currentState = GameObject.Find("StateController").GetComponent<StateController>();
@@ -24,6 +28,8 @@ public class SpaceInteract : MonoBehaviour
     {
         render = GetComponent<Renderer>();
         startColor = render.material.color;
+
+        condition = 0;
     }
 
     private void OnMouseDown()
@@ -41,13 +47,15 @@ public class SpaceInteract : MonoBehaviour
         }
     }
 
-    void OnMouseOver()
-    { 
-      //  render.material.color = hoverColor;
+    void OnMouseEnter()
+    {
+        BuildManager.instance.SetCondition(1);
+
+        Debug.Log("Tower");
     }
 
     void OnMouseExit ()
     {
-        render.material.color = startColor;
+        BuildManager.instance.SetCondition(0);
     }
 }
