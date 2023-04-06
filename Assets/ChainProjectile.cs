@@ -38,10 +38,11 @@ public class ChainProjectile : MonoBehaviour
         {
             collision.GetComponent<EnemyHealth>().loseHealth(attackDamage);
 
+            /*
             Destroy(this.gameObject);
             if (tempChains <= chains)
             {
-                if (!collision.gameObject.GetComponent<MeleeAttack>() && !collision.gameObject.GetComponent<TowerProjectile>() && !collidersInside.Contains(other))
+                if (!collision.gameObject.GetComponent<MeleeAttack>() && !collision.gameObject.GetComponent<TowerProjectile>() && !collidersInside.Contains(collision))
                 {
                     collidersInside.Add(collision);
                 }
@@ -51,9 +52,9 @@ public class ChainProjectile : MonoBehaviour
                 float targetAngle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
                 projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle));
                 projectile.GetComponent<ChainProjectile>().getChains(tempChains);
-                projectile.GetComponent<ChainProjectile>().fireOrigin = 
+                projectile.GetComponent<ChainProjectile>().fireOrigin = fireOrigin; 
                 projectile.GetComponent<ChainProjectile>().attackDamage = attackDamage;
-            }
+            }*/
         }
     }
 
