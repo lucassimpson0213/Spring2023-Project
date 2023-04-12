@@ -20,7 +20,7 @@ public class ChainProjectile : MonoBehaviour
     {
         movementTime = attackRange / speed;
         timeStop = Time.time + movementTime;
-        
+
     }
 
     // Update is called once per frame
@@ -38,22 +38,23 @@ public class ChainProjectile : MonoBehaviour
         {
             collision.GetComponent<EnemyHealth>().loseHealth(attackDamage);
 
+            /*
             Destroy(this.gameObject);
             if (tempChains <= chains)
             {
-                //if (!collision.gameObject.GetComponent<MeleeAttack>() && !collision.gameObject.GetComponent<TowerProjectile>() && !collidersInside.Contains(other))
-                //{
-                //    collidersInside.Add(collision);
-                //}
-                //GameObject projectile;
-                //var target = collidersInside.OrderBy(go => (transform.position - go.transform.position).sqrMagnitude).ToList();
-                //Vector3 vectorToTarget = target[target.IndexOf(target.Where(x => x.tag == "Enemy/Ground").FirstOrDefault())].transform.position - transform.position;
-                //float targetAngle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
-                //projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle));
-                //projectile.GetComponent<ChainProjectile>().getChains(tempChains);
-                //projectile.GetComponent<ChainProjectile>().fireOrigin = 
-                //projectile.GetComponent<ChainProjectile>().attackDamage = attackDamage;
-            }
+                if (!collision.gameObject.GetComponent<MeleeAttack>() && !collision.gameObject.GetComponent<TowerProjectile>() && !collidersInside.Contains(collision))
+                {
+                    collidersInside.Add(collision);
+                }
+                GameObject projectile;
+                var target = collidersInside.OrderBy(go => (transform.position - go.transform.position).sqrMagnitude).ToList();
+                Vector3 vectorToTarget = target[target.IndexOf(target.Where(x => x.tag == "Enemy/Ground").FirstOrDefault())].transform.position - transform.position;
+                float targetAngle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+                projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle));
+                projectile.GetComponent<ChainProjectile>().getChains(tempChains);
+                projectile.GetComponent<ChainProjectile>().fireOrigin = fireOrigin;
+                projectile.GetComponent<ChainProjectile>().attackDamage = attackDamage;
+            }*/
         }
     }
 
