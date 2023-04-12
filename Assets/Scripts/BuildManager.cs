@@ -9,6 +9,8 @@ public class BuildManager : MonoBehaviour
 
     StateController currentState;
 
+    int currentCondition;
+
     public GameObject tower;
 
 
@@ -47,6 +49,8 @@ public class BuildManager : MonoBehaviour
         instance = this;
 
         currentState = GameObject.Find("StateController").GetComponent<StateController>();
+
+        currentCondition = 0;
     }
 
     public GameObject GroundEnemyprefab;
@@ -64,15 +68,17 @@ public class BuildManager : MonoBehaviour
         return TurretToBuild;
     }
 
-    void Update()
+    public void SetCondition (int condition)
     {
-        if (Input.GetMouseButtonDown(0) && currentState.state == 1)
+        currentCondition = condition;
+    }
+    void Update()
+    {   
+        if (Input.GetMouseButtonDown(0) && currentState.state == 1 && currentCondition == 0)
         {
             GameObject.Find("SoundController").GetComponent<Sound>().SpawnSound("TowerPlace1");
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Instantiate(tower, pos, Quaternion.identity);
         }
     }
-
-
 }
