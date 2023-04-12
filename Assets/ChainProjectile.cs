@@ -40,7 +40,7 @@ public class ChainProjectile : MonoBehaviour
 
             /*
             Destroy(this.gameObject);
-            if (tempChains <= chains)
+            /*if (tempChains <= chains)
             {
                 if (!collision.gameObject.GetComponent<MeleeAttack>() && !collision.gameObject.GetComponent<TowerProjectile>() && !collidersInside.Contains(collision))
                 {
