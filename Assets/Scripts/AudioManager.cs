@@ -57,16 +57,13 @@ public class AudioManager : MonoBehaviour
         {
             if (s.name.Equals(name))
             {
-                readySounds.Insert(0, s);
-                // Initialize sound source and play it
-                readySounds[0].source = gameObject.AddComponent<AudioSource>();
-                readySounds[0].source.clip = readySounds[0].clip;
-                readySounds[0].source.volume = 0f;
-                readySounds[0].source.pitch = readySounds[0].pitch;
-                readySounds[0].source.loop = readySounds[0].loop;
+                // Make a new AMS that clones the selected one from the soundBank
+                AudioManagerSound newS = new AudioManagerSound (s.name, s.clip, s.volume, s.pitch, s.loop, gameObject.AddComponent<AudioSource>());
+                newS.source.volume = 0f; // initial volume to 0
+                readySounds.Insert(0, newS); // newest sound gets priority
                 readySounds[0].source.Play();
                 // fadeTimeRemaining[] should have an entry for each one in readySounds[]
-                // Probably would be better to include the fadeTimeRemaining in the sound object itself actually... might do later
+                // Probably would be better to include the fadeTimeRemaining in the sound object itself actually... eh too much work now lol
                 fadeTimeRemaining.Insert(0, fadeTime);
                 // For other fades (such as the one that just got pushed back, if it exists), set them if they arent already ticking
                 if (fadeTimeRemaining.Count > 1) // if there was already a song playing that got pushed back
@@ -83,7 +80,7 @@ public class AudioManager : MonoBehaviour
                 soundFound = true;
                 break;
             }
-        }
+        } 
         if (!soundFound)
         {
             Debug.LogWarning("AudioManagerSound: " + name + " not found in soundBank");
@@ -106,19 +103,23 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
-        /*
+        
         // for testing bgm fade
         if (Input.GetKeyDown(KeyCode.O)) {
             Play("BGM2");
         }
-        */
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Play("BGM");
+        }
+
 
         // handle fades
         if (fadeTimeRemaining.Count > 0) // just protection against list being empty
         {
-            for (int i = 0; i < fadeTimeRemaining.Count; i++)
+            for (int i = 0; i < fadeTimeRemaining.Count; i++) // iterate through list
             {
-                if (fadeTimeRemaining[i] > 0) // if fade time left
+                if (fadeTimeRemaining[i] > 0) // if fade time left on current element
                 {
                     if (i == 0) // fade in first element
                     {
@@ -136,8 +137,9 @@ public class AudioManager : MonoBehaviour
                     {
                         readySounds[0].source.volume = readySounds[0].volume;
                     }
-                    else // if not first element, then remove element
+                    else // if not first element, then ensure volume is gone and remove element
                     {
+                        readySounds[i].source.volume = 0f;
                         readySounds.RemoveAt(i);
                         fadeTimeRemaining.RemoveAt(i);
                     }
