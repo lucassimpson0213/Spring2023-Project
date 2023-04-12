@@ -6,7 +6,7 @@ public class ChainProjectile : MonoBehaviour
 {
     [SerializeField] float speed = 10f;
     [SerializeField] float attackRange = 1f;
-    [SerializeField] int chains = 1;
+    //[SerializeField] int chains = 1;
     [SerializeField] GameObject projectilePrefab;
     public GameObject fireOrigin;
     private int tempChains;

@@ -48,7 +48,7 @@ public class BuildManager : MonoBehaviour
         
         instance = this;
 
-        currentState = GameObject.Find("StateController").GetComponent<StateController>();
+        currentState = GameObject.Find("GameManager").GetComponent<StateController>();
 
         currentCondition = 0;
     }
@@ -74,7 +74,7 @@ public class BuildManager : MonoBehaviour
     }
     void Update()
     {   
-        if (Input.GetMouseButtonDown(0) && currentState.state == 1 && currentCondition == 0)
+        if (Input.GetMouseButtonDown(0) && currentState!=null && currentState.state == 1 && currentCondition == 0)
         {
             GameObject.Find("SoundController").GetComponent<Sound>().SpawnSound("TowerPlace1");
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

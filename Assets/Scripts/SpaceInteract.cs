@@ -21,12 +21,15 @@ public class SpaceInteract : MonoBehaviour
 
     private void Awake()
     {
-        currentState = GameObject.Find("StateController").GetComponent<StateController>();
+        currentState = GameObject.Find("GameManager").GetComponent<StateController>();
     }
 
     private void Start()
     {
-        render = GetComponent<Renderer>();
+        if (GetComponent<Renderer>()) { render = GetComponent<Renderer>(); }
+        else if (GetComponentInChildren<Renderer>()) { render = GetComponentInChildren<Renderer>(); }
+        else if (GetComponentInParent<Renderer>()) { render = GetComponentInParent<Renderer>(); }
+
         startColor = render.material.color;
 
         condition = 0;
@@ -34,14 +37,14 @@ public class SpaceInteract : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (currentState.state == 1)
+        if (currentState != null && currentState.state == 1)
         {
             Debug.Log("Can't build there!");
             return;
         }
         
         //Sell a turret
-        if (currentState.state == 2 & GetComponent<TowerHealth>())
+        if (currentState.state == 2 & GetComponent<TowerHealth>()!=null)
         {
             Destroy(gameObject);
         }
