@@ -6,8 +6,14 @@ using System.Linq;
 public class EnemyDetector : MonoBehaviour
 {
     private List<Collider2D> collidersInside = new List<Collider2D>();
+    private bool coreLockOn = false;
+    private GameObject coreObject;
     // Update is called once per frame
     // Creates the array of objects inside of the collider.
+    private void Start()
+    {
+        coreObject = GameObject.Find("core");
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Checks if collider already exist inside of the array.
@@ -34,5 +40,21 @@ public class EnemyDetector : MonoBehaviour
             return vectorToTarget;
         }
         return null;
+    }
+    public bool IsNearCore()
+    {
+        var target = collidersInside.OrderBy(go => (transform.position - go.transform.position).sqrMagnitude).ToList();
+        if (coreLockOn)
+        {
+            return true;
+        }
+        if ((target.Any(item => item.name == "core") && !(target.Any(item => item.GetComponent<TowerHealth>())) && !(target.Any(item => item.GetComponent<PlayerHealth>()))) || Vector2.Distance(transform.position, coreObject.transform.position) <= 0.3f)
+        {
+            coreLockOn = true;
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 }

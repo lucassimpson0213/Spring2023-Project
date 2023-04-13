@@ -52,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 // Decelerate Player
                 timePass -= Time.deltaTime;
-                Debug.Log(timePass);
                 float linearT = timePass / decelerationDuration;
                 float heightT = deceleration.Evaluate(linearT);
                 currentSpeed = Mathf.Lerp(0, 4, heightT);

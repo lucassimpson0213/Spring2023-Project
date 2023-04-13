@@ -176,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAttackSpeed: 1
   projectilePrefab: {fileID: 1868895473673010215, guid: 7c9364efdd76db04fbc79ceb1014dc9d, type: 3}
-  attackDamage: 5
+  attackDamage: 10
 --- !u!114 &3850303297872243293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05b2448632da9648adb9a850207c8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 500
+  health: 150
 --- !u!212 &8128330393044297704
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd559ca735aea44ba42fd95dfb1080d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 1.5
   towerDetectObject: {fileID: 3282187202551525500}
   bufferDistance: 1.2
   maxPlayerFollowRange: 4

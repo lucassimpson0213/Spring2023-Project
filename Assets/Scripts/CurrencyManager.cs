@@ -25,6 +25,7 @@ public class CurrencyManager : MonoBehaviour
     public void AddCurrency(int currencyToAdd)
     {
         // Add currency function
+        GameObject.Find("SoundController").GetComponent<Sound>().SpawnSound("MoneyGet");
         playerCurrentCurrency += currencyToAdd;
     }
     public bool SubtractCurrency(int currencyToSubtract)

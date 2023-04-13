@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BuildManager : MonoBehaviour
@@ -7,6 +8,8 @@ public class BuildManager : MonoBehaviour
     public static BuildManager instance;
 
     StateController currentState;
+
+    int currentCondition;
 
     public GameObject tower;
 
@@ -45,7 +48,9 @@ public class BuildManager : MonoBehaviour
         
         instance = this;
 
-        currentState = GameObject.Find("StateController").GetComponent<StateController>();
+        currentState = GameObject.Find("GameManager").GetComponent<StateController>();
+
+        currentCondition = 0;
     }
 
     public GameObject GroundEnemyprefab;
@@ -63,10 +68,15 @@ public class BuildManager : MonoBehaviour
         return TurretToBuild;
     }
 
-    void Update()
+    public void SetCondition (int condition)
     {
-        if (Input.GetMouseButtonDown(0) && currentState.state == 1)
+        currentCondition = condition;
+    }
+    void Update()
+    {   
+        if (Input.GetMouseButtonDown(0) && currentState!=null && currentState.state == 1 && currentCondition == 0)
         {
+            GameObject.Find("SoundController").GetComponent<Sound>().SpawnSound("TowerPlace1");
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Instantiate(tower, pos, Quaternion.identity);
         }

@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void loseHealth(int damage)
     {
+        GameObject.Find("SoundController").GetComponent<Sound>().SpawnSound("PlayerDamaged");
         health = health - damage;
         if (health <= 0)
         {

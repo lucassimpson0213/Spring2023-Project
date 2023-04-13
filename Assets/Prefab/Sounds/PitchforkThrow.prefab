@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8678316427079017918}
   - component: {fileID: 5811589103166270467}
   m_Layer: 0
-  m_Name: Sound
+  m_Name: PitchforkThrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -70,8 +70,8 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("Spawn Wave");
         Debug.Log("Wave " + waveNumber);
-        
-        
+
+        GameObject.Find("SoundController").GetComponent<Sound>().SpawnSound("WaveIncoming");
         SpawnEnemy(1, northArr[index]);
         SpawnEnemy(2, southArr[index]);
         SpawnEnemy(3, eastArr[index]);
@@ -84,6 +84,8 @@ public class EnemyController : MonoBehaviour
 
     }
 
+    //In the arrays of the enemy controller object set 0 to not spawn enemy from spawnpoint for that wave index and set 1 to spawn enemy
+    //Eventually will set it up to spawn specific enemy types based off of number(ex: ground enemy = 1, flyning enemy = 2, and so on)
     void SpawnEnemy(int spawnPosition, int enemyType)
     {
         //Switch case for spawns
@@ -129,7 +131,42 @@ public class EnemyController : MonoBehaviour
                 Instantiate(enemyPrefab, enemySpawn.transform.position, enemySpawn.transform.rotation);
                 Debug.Log("Spawn Enemy");
                 break;
-            
+            case 5:
+                if (enemyType == 0)
+                {
+                    break;
+                }
+                enemySpawn = GameObject.Find("NorthEastSpawn");
+                Instantiate(enemyPrefab, enemySpawn.transform.position, enemySpawn.transform.rotation);
+                Debug.Log("Spawn Enemy");
+                break;
+            case 6:
+                if (enemyType == 0)
+                {
+                    break;
+                }
+                enemySpawn = GameObject.Find("NorthWestSpawn");
+                Instantiate(enemyPrefab, enemySpawn.transform.position, enemySpawn.transform.rotation);
+                Debug.Log("Spawn Enemy");
+                break;
+            case 7:
+                if (enemyType == 0)
+                {
+                    break;
+                }
+                enemySpawn = GameObject.Find("SouthEastSpawn");
+                Instantiate(enemyPrefab, enemySpawn.transform.position, enemySpawn.transform.rotation);
+                Debug.Log("Spawn Enemy");
+                break;
+            case 8:
+                if (enemyType == 0)
+                {
+                    break;
+                }
+                enemySpawn = GameObject.Find("SouthWestSpawn");
+                Instantiate(enemyPrefab, enemySpawn.transform.position, enemySpawn.transform.rotation);
+                Debug.Log("Spawn Enemy");
+                break;
         }
 
 

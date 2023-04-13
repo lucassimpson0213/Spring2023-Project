@@ -5,30 +5,28 @@ using UnityEngine;
 
 public class Upgrades : MonoBehaviour
 {
-    /*
-     * Hey I just wanted to make sure we were on the same track for this script!
-     * Level design has expressed their dislike for the idea of managing stat multipliers and incrementing statMultipliers
-     * We want to pivot back to the per prefab set arrays of the levels
-     * We can do this one of two ways
-     * Arrays for each stat
-     * or
-     * Objects that hold each stat and an array to hold those objects
-     * 
-     * If you have any questions reach out to me during club or on discord :D
-     * 
-     */
 
-    public int max_level = 5;
-    private int curr_level = 0;
-    private int[] health;
-    private int[] attack;
-    private int[] attackRate;
-    private int[] range;
-    private int[] upgradeCost;
+    [SerializeField] int max_level = 5;
+    [SerializeField] int curr_level = 0;
+    [SerializeField] int[] health;
+    [SerializeField] int[] attack;
+    [SerializeField] int[] attackRate;
+    [SerializeField] int[] range;
+    [SerializeField] int[] upgradeCost;
+    /// /////////////////////////////////////////////////
+        // Code for testing remove before normal use.
+    private bool canFire;
+    private int booletcooldown;
+    /// /////////////////////////////////////////////////
 
     // Start is called before the first frame update
     void Start()
     {
+        /// /////////////////////////////////////////////////
+        // Code for testing remove before normal use.
+        canFire = true;
+        booletcooldown = 1;
+        /// /////////////////////////////////////////////////
         health = new int[max_level];
         attack = new int[max_level];
         attackRate = new int[max_level];
@@ -37,7 +35,7 @@ public class Upgrades : MonoBehaviour
 
         for (int x = 0; x < max_level; x++ )
         {
-            //todo: change this to get stats from prefab.
+            //Set stat arrays to 0, they'll be filled later.
             health[x] = 0;
             attack[x] = 0;
             attackRate[x] = 0;
@@ -45,22 +43,50 @@ public class Upgrades : MonoBehaviour
             upgradeCost[x] = 0;
         }
     }
-    
+  
+    /// /////////////////////////////////////////////////
+    // Code for testing remove before normal use.
+    private void Update()
+    {
+        if (Input.GetButton("Fire1") && canFire)
+        {
+            levelUp();
+            Debug.Log("LEVEL UP to " + curr_level + " max_level is supposed to be " + max_level);
+            canFire = false;
+            StartCoroutine(fireWait());
+        }
+    }
+    IEnumerator fireWait()
+    {
+        yield return new WaitForSeconds(booletcooldown);
+        canFire = true;
+    }
+
+    /// /////////////////////////////////////////////////
+
     public void levelUp()
     {
         if(CurrencyManager.instance.SubtractCurrency(upgradeCost[curr_level]) 
-            && curr_level<max_level)
+            && curr_level < max_level-1 )
         {
             curr_level++;
+            gameObject.GetComponent<TowerHealth>().levelUpHealth();
         }
     }
     public int getCurrentLevel()
     {
-        return curr_level;
+        return curr_level + 1;
     }
     public int getHealth()
     {
         return health[curr_level];
+    }
+    public int getPrevHealth()
+    {
+        if (curr_level > 0)
+            return health[curr_level - 1];
+        else
+            return health[curr_level];
     }
     public int getAttack()
     {
