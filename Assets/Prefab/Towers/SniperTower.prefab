@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverColor: {r: 0, g: 0.16181755, b: 1, a: 0}
+  condition: 0
 --- !u!114 &3446273407124926838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,7 +356,7 @@ Animator:
   m_GameObject: {fileID: 8416358970125311460}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4eb32879a1faacd4587c846334a1fef5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

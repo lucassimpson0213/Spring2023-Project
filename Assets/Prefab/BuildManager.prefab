@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c0d6e8bac5abd408fc5b9dfbd820ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tower: {fileID: 4968962551966464908, guid: 3e4529658e7554a48a35edc203ca2047, type: 3}
   GroundEnemyprefab: {fileID: 3737888730154238348, guid: ed000a6728545024fa6363988f80964b, type: 3}
+  SpinnyEnemyprefab: {fileID: 0}

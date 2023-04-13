@@ -94,7 +94,7 @@ public class EnemyMovement : MonoBehaviour
     }
     private IEnumerator PlayerAgroCooldown()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(playerIgnoreCooldown);
         ignorePlayer = false;
     }
 }

@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4617116338892766507}
-  nextLevel: 
+  nextLevel: _DevRoom
 --- !u!1 &4617116340275975020
 GameObject:
   m_ObjectHideFlags: 0

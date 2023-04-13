@@ -513,7 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e67c33bc3f4e1449d621daa651477c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildMode: 0
+  buildMode: 1
   towerSelector: 0
   towerBar: {fileID: 2192391985110995065}
   outlineLocations:

@@ -23,6 +23,7 @@ public class StateController : MonoBehaviour
        {
             state++;
             state %= 3;
-       };
+            Debug.Log(state);
+       }
     }
 }

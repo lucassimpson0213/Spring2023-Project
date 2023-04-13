@@ -246,7 +246,7 @@ MonoBehaviour:
   FirePoint: {fileID: 3425731274659329534}
   BulletPrefab: {fileID: 5300216811957931505, guid: 0245b5234b14eb246978155e7c766222, type: 3}
   bulletForce: 20
-  bulletCooldown: 0.5
+  bulletCooldown: 1
 --- !u!114 &406050699916004051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +259,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ca5b99109bc7c429322159df089205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundPrefab: {fileID: 4967475202125170013, guid: e6c8c8910f7cb404d8690c3141d8524f, type: 3}
+  ShootPrefab: {fileID: 0}
+  Footsteps2Prefab: {fileID: 0}
+  GasEmitPrefab: {fileID: 0}
+  MenuMoveLongPrefab: {fileID: 0}
+  MenuMoveShortPrefab: {fileID: 0}
+  MenuSelectPrefab: {fileID: 0}
+  MoneyGetPrefab: {fileID: 0}
+  PitchforkThrowPrefab: {fileID: 0}
+  PlayerDamagedPrefab: {fileID: 0}
+  ShotgunTowerShoot2Prefab: {fileID: 0}
+  TowerDestroyPrefab: {fileID: 0}
+  TowerPlace1Prefab: {fileID: 0}
+  WaveIncomingPrefab: {fileID: 0}
   DestroyTime: 1.5
 --- !u!58 &4089606559287040787
 CircleCollider2D:
