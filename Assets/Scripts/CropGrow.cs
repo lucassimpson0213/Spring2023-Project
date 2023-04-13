@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class CropGrow : MonoBehaviour
 {
-    public float growRate = 10;
+    public float growTime = 10;
+    private float growRate = 0;
     [SerializeField] Sprite[] growStageSprites;
     float plantStageTimer = 0;
     bool cropIsFull = false;
     int cropStages;
     int currentStage = -1;
+    [SerializeField] cropEffect cropPickupEffect;
+    [SerializeField] int healthValue = 0;
+    [SerializeField] int moneyValue = 0;
+    enum cropEffect
+    {
+        money,
+        health
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +27,7 @@ public class CropGrow : MonoBehaviour
             Debug.LogError("Crop does not have any grow stages in its array (Check Grow Stage Sprites)");
         }
         cropStages = growStageSprites.Length;
+        growRate = growTime / growStageSprites.Length;
     }
 
     // Update is called once per frame
@@ -37,10 +47,17 @@ public class CropGrow : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
         if (collision.GetComponent<PlayerHealth>() && (cropIsFull))
         {
-            //Give player Money Here
+            switch (cropPickupEffect)
+            {
+                case cropEffect.money:
+                    //Give player Money Here
+                    break;
+                case cropEffect.health:
+                    collision.GetComponent<PlayerHealth>().gainHealth(healthValue);
+                    break;
+            }
             Destroy(this.gameObject);
         }
     }
