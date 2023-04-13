@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2783779198800341443}
   - component: {fileID: 2808822926064701026}
   - component: {fileID: -705851631597316685}
+  - component: {fileID: 5491698315203150475}
   m_Layer: 0
   m_Name: ChainPro
   m_TagString: Untagged
@@ -120,11 +121,36 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228929761512374194}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 183c23a6570f68942959bb3aee425ae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 10
+  attackRange: 1
+  projectilePrefab: {fileID: 0}
+  fireOrigin: {fileID: 0}
+  attackDamage: 0
+--- !u!114 &5491698315203150475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228929761512374194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85494dc928ca063478937d2786d4388b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  attackRange: 1
+  chains: 7
+  lockTarget: {fileID: 0}
+  attackDamage: 0
+  fireChain: []
+  detectObject: {fileID: 1913956920642275204}
+  dontChainToSameEnemys: 1
 --- !u!1 &1913956920642275204
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,6 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2593529692610181717}
   - component: {fileID: 1594177339247995192}
+  - component: {fileID: 982591276719539888}
   m_Layer: 0
   m_Name: AttackRange
   m_TagString: Untagged
@@ -167,9 +194,21 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 5
+--- !u!114 &982591276719539888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913956920642275204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 074577ee55c1daf4caed464501d122a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

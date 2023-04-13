@@ -7,10 +7,20 @@ public class TowerAttack : MonoBehaviour
 {
     public float towerAttackSpeed;
     private List<Collider2D> collidersInside = new List<Collider2D>();
+    [Header("Bullets")]
     [SerializeField] GameObject projectilePrefab;
+    [SerializeField] GameObject chainProjectilePrefab;
     public int attackDamage;
     private bool attackCoroutineRunning = false;
-    [SerializeField] string towerType;
+    [SerializeField] towerTypesList towerType;
+    enum towerTypesList
+    {
+        standard,
+        chain,
+        sniper,
+        shotgun
+    }
+
      // Update is called once per frame
     void Update()
     {
@@ -44,7 +54,7 @@ public class TowerAttack : MonoBehaviour
         attackCoroutineRunning = true;
         //sorts all of the objects in the array in order by distance.
         var target = collidersInside.OrderBy(go => (transform.position - go.transform.position).sqrMagnitude).ToList();
-        
+        Debug.Log(towerType);
         if (target.Any(item => item.GetComponent<EnemyHealth>()))
         {
             GameObject projectile;
@@ -52,19 +62,27 @@ public class TowerAttack : MonoBehaviour
             Vector3 vectorToTarget = target[target.IndexOf(target.Where(x => x.tag == "Enemy/Ground").FirstOrDefault())].transform.position - transform.position;
             // Gets the angle of the target from the fireing origin.
             float targetAngle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
-            if (towerType == "standard" || towerType == "sniper" || towerType == "chain")
+            if (towerType == towerTypesList.standard || towerType == towerTypesList.sniper)
             {
                 projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle));
                 projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
             }
-            if (towerType == "shotgun")
+            switch (towerType)
             {
-                projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle));
-                projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
-                projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle + 45));
-                projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
-                projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle - 45));
-                projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
+                case towerTypesList.chain:
+                    projectile = Instantiate(chainProjectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle));
+                    projectile.GetComponent<TowerChainProjectiles>().lockTarget = target[target.IndexOf(target.Where(x => x.GetComponent<EnemyHealth>()).FirstOrDefault())].gameObject;
+                    Debug.Log(target[target.IndexOf(target.Where(x => x.GetComponent<EnemyHealth>()).FirstOrDefault())].gameObject.name);
+                    projectile.GetComponent<TowerChainProjectiles>().attackDamage = attackDamage;
+                    break;
+                case towerTypesList.shotgun:
+                    projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle));
+                    projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
+                    projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle + 45));
+                    projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
+                    projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle - 45));
+                    projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
+                    break;
             }
         }
         yield return new WaitForSeconds(towerAttackSpeed);

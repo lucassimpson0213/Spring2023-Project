@@ -46,4 +46,23 @@ public class TowerChainDetect : MonoBehaviour
         }
         return null;
     }
+    public GameObject FindClosestWhileExludeArray(List <GameObject> exclude)
+    {
+        var target = collidersInside.OrderBy(go => (transform.position - go.transform.position).sqrMagnitude).ToList();
+        // checks if the exclude object is inside of the array
+        foreach(GameObject obj in exclude)
+        {
+            if (target.Any(item => item.gameObject == obj))
+            {
+                // Remove the object by finding it position in the array.
+                target.Remove(target[target.IndexOf(target.Where(x => x.gameObject == obj).FirstOrDefault())]);
+            }
+        }
+        if (target.Any(item => item.GetComponent<EnemyHealth>()))
+        {
+            GameObject vectorToTarget = target[target.IndexOf(target.Where(x => x.GetComponent<EnemyHealth>()).FirstOrDefault())].gameObject;
+            return vectorToTarget;
+        }
+        return null;
+    }
 }

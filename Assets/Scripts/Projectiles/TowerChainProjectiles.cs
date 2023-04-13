@@ -12,6 +12,7 @@ public class TowerChainProjectiles : MonoBehaviour
     public List<GameObject> fireChain = new List<GameObject>();
     [SerializeField] GameObject detectObject;
     private int currentBounce = 0;
+    [SerializeField] bool dontChainToSameEnemys;
 
     // Update is called once per frame
     private void Update()
@@ -43,20 +44,40 @@ public class TowerChainProjectiles : MonoBehaviour
             if (collision.gameObject == lockTarget)
             {
                 collision.GetComponent<EnemyHealth>().loseHealth(attackDamage);
+                fireChain.Add(collision.gameObject);
             }
             //Checks for other enemys in range to fire at.
-            var newTarget = detectObject.GetComponent<TowerChainDetect>().FindClosestWhileExlude(collision.gameObject);
-            //If no other enemys are near by or the max chain is reach, destory.
-            if (newTarget == null || currentBounce >= chains)
+            if (dontChainToSameEnemys)
             {
-                Destroy(this.gameObject);
+                var newTarget = detectObject.GetComponent<TowerChainDetect>().FindClosestWhileExludeArray(fireChain);
+                //If no other enemys are near by or the max chain is reach, destory.
+                if (newTarget == null || currentBounce >= chains)
+                {
+                    Destroy(this.gameObject);
+                }
+                else
+                {
+                    currentBounce++;
+                    // add object to array for the function to stop same targeting.
+                    fireChain.Add(newTarget);
+                    lockTarget = newTarget;
+                }
             }
             else
             {
-                currentBounce++;
-                // add object to array for the function to stop same targeting.
-                fireChain.Add(newTarget);
-                lockTarget = newTarget;
+                var newTarget = detectObject.GetComponent<TowerChainDetect>().FindClosestWhileExlude(collision.gameObject);
+                //If no other enemys are near by or the max chain is reach, destory.
+                if (newTarget == null || currentBounce >= chains)
+                {
+                    Destroy(this.gameObject);
+                }
+                else
+                {
+                    currentBounce++;
+                    // add object to array for the function to stop same targeting.
+                    fireChain.Add(newTarget);
+                    lockTarget = newTarget;
+                }
             }
         }
     }
