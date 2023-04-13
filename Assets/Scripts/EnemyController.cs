@@ -37,18 +37,9 @@ public class EnemyController : MonoBehaviour
      
      */
 
-    /*private void Start()
-    {
-        northArr = new int[waveAmount];
-        southArr = new int[waveAmount];
-        eastArr = new int[waveAmount];
-        westArr = new int[waveAmount];
-        northEastArr = new int[waveAmount];
-        northWestArr = new int[waveAmount];
-        southEastArr = new int[waveAmount];
-        southWestArr = new int[waveAmount];
-    }*/
 
+
+    /*Leave enemy spawn prefab set to none on enemy controller object*/
 
     void Update()
     {
@@ -76,6 +67,10 @@ public class EnemyController : MonoBehaviour
         SpawnEnemy(2, southArr[index]);
         SpawnEnemy(3, eastArr[index]);
         SpawnEnemy(4, westArr[index]);
+        SpawnEnemy(5, northEastArr[index]);
+        SpawnEnemy(6, northWestArr[index]);
+        SpawnEnemy(7, southEastArr[index]);
+        SpawnEnemy(8, southWestArr[index]);
         waveNumber++;
         index++;
         //Wait 0.5 seconds before spawning next enemy
