@@ -18,7 +18,8 @@ public class TowerAttack : MonoBehaviour
         standard,
         chain,
         sniper,
-        shotgun
+        shotgun,
+        poison
     }
 
      // Update is called once per frame
@@ -82,6 +83,10 @@ public class TowerAttack : MonoBehaviour
                     projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
                     projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, targetAngle - 45));
                     projectile.GetComponent<TowerProjectile>().attackDamage = attackDamage;
+                    break;
+                case towerTypesList.poison:
+                    projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 0, 0));
+                    projectile.GetComponent<PoisonProj>().target = target[target.IndexOf(target.Where(x => x.GetComponent<EnemyHealth>()).FirstOrDefault())].gameObject.transform.position;
                     break;
             }
         }
